@@ -1,0 +1,21 @@
+<?php
+include "connection.php";
+
+$sql = "CREATE TABLE IF NOT EXISTS user (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    age INT,
+	CGPA DECIMAL(10,2) NOT NULL,
+    image VARCHAR(255)
+);";
+$result = mysqli_query($conn, $sql);
+
+if ($result) {
+    echo " User Table created successfully!";
+} else {
+    echo "Error creating table: " . mysqli_error($conn);
+}
+
+
+mysqli_close($conn);
+?>

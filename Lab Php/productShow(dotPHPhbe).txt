@@ -1,0 +1,129 @@
+<?php
+include "connection.php";
+
+$sql = "SELECT * FROM product";
+$result = mysqli_query($conn, $sql);
+
+$products = array();
+
+while($row = mysqli_fetch_assoc($result) ){
+	$products[] = $row;
+}
+
+mysqli_close($conn);
+?>
+	
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Beautiful Product Grid</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f6fa;
+        margin: 0;
+        padding: 30px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        padding: 10px;
+    }
+
+    .product-card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: 0.3s ease;
+    }
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .product-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-info h3 {
+        margin: 0;
+        font-size: 20px;
+        color: #222;
+    }
+
+    .product-info p {
+        font-size: 14px;
+        color: #666;
+        margin: 8px 0;
+        height: 40px;
+        overflow: hidden;
+    }
+
+    .price {
+        color: #e67e22;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 10px 15px;
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #2980b9;
+    }
+</style>
+
+</head>
+<body>
+
+<h1>Product Grid View</h1>
+
+<div class="grid-container">
+	<?php for($i=0; $i<count($products); $i++){ ?>
+
+    <div class="product-card">
+        <img src="https://via.placeholder.com/300x180" alt="Product Image">
+        <div class="product-info">
+            <h3><?php echo $products[$i] ['name'];?></h3>
+			<h3><?php echo $products[$i] ['description'];?></h3>
+            <p>This is a nice and short description of product 1.</p>
+            <div class="price"><?php echo $products[$i] ['price'];?></div>
+            <a href="#" class="btn">View Details</a>
+        </div>
+    </div>
+	<?php } ?>
+
+
+
+</div>
+
+</body>
+</html>
